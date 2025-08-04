@@ -59,4 +59,16 @@ public class ItemController {
         List<Item> items = itemService.findByDescriptionOrId(descriptionOrId);
         return ResponseEntity.ok(items);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<List<Item>> deleteItem(@PathVariable int id) {
+        itemService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Item> updateItem(@PathVariable int id, @RequestBody @Valid ItemDto itemDto) {
+        Item updatedItem = itemService.updateItem(id, itemDto);
+        return ResponseEntity.ok(updatedItem);
+    }
 }

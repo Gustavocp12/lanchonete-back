@@ -61,4 +61,22 @@ public class ItemService {
                         String.valueOf(item.getId()).equals(descriptionOrId))
                 .toList();
     }
+
+    public List<Item> deleteById(int id) {
+        Item item = findById(id);
+        repository.delete(item);
+
+        return repository.findAll();
+    }
+
+    public Item updateItem(int id, ItemDto dto) {
+        Item item = findById(id);
+        item.setType(dto.getType());
+        item.setDescription(dto.getDescription());
+        item.setPrice(dto.getPrice());
+        item.setFlag(dto.getFlag());
+        repository.save(item);
+
+        return item;
+    }
 }
